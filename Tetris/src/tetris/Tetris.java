@@ -52,7 +52,7 @@ public class Tetris {
         }
     }
 
-    /*Desde el punto de referencia de la figura (extremo inferior derecho), iremos
+    /*Desde el punto de referencia de la figura (extremo inferior izquierdo), iremos
     haciendo la figura para ver donde se puede colocar */
     static void caerColumna() {
         for (int i = fila - 1; i > 0; i++) {

@@ -1,6 +1,7 @@
 package tetris;
 
 import java.util.Random;
+import java.util.Scanner;
 
 public class Tetris {
 //variables globales
@@ -20,26 +21,15 @@ public class Tetris {
     final static int DOS = 2;
     final static int TRES = 3;
 
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+
 //funciones
 //figuras
+   
 //mover
-//caer
-    static void caer() {
-        Random rnd = new Random();
-        int numero = rnd.nextInt(5);
-
-        if (numero == 1) {
-            caerCuadrado();
-        } else if (numero == 2) {
-            caerColumna();
-        } else if (numero == 3) {
-            caerLlado();
-        } else {
-            caerL();
-        }
-
-    }
-
     static void caerCuadrado() {
         for (int i = fila - 1; i > 0; i++) {
             if (figura[i][posCol] == 0 && figura[i][posCol + 1] == 0
@@ -90,8 +80,22 @@ public class Tetris {
         }
     }
 
-//eliminar fila si está llena
-//llegar tope
+    static void caer() {
+        Random rnd = new Random();
+        int numero = rnd.nextInt(5);
+
+        if (numero == 1) {
+            caerCuadrado();
+        } else if (numero == 2) {
+            caerColumna();
+        } else if (numero == 3) {
+            caerLlado();
+        } else {
+            caerL();
+        }
+
+    }
+
     static void limite() {
         for (int i = 0; i < col; i++) {
             if (tauler[0][i] != 0) {
@@ -100,8 +104,52 @@ public class Tetris {
         }
     }
 
-    public static void main(String[] args) {
-        // TODO code application logic here
+    //eliminar fila si está llena
+//llegar tope
+    public static void MostrarTauler(int[][] tauler) {
+
+        for (int i = 0; i < tauler.length; i++) {
+            for (int j = 0; j < tauler[0].length; j++) {
+                switch (tauler[i][j]) {
+                    case 0:
+                        System.out.print("0");
+                        break;
+                    case 1:
+                        System.out.print(ANSI_CYAN + "1");
+                        break;
+                    case 2:
+                        System.out.print(ANSI_YELLOW + "1");
+                        break;
+                    case 3:
+                        System.out.print(ANSI_GREEN + "1");
+                        break;
+                }
+                System.out.print(ANSI_RESET);
+            }
+            System.out.println();
+        }
     }
 
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Introdueix l'amplada del taulell: ");
+        int amplada = scan.nextInt();
+        System.out.println("Introdueix l'alçada del taulell: ");
+        int alcada = scan.nextInt();
+        int[][] tauler = new int[alcada][amplada];
+        boolean finalPartida = false;
+        while (!finalPartida) {
+            int[][] Figura = new int[4][amplada];
+            ControlDePiezas.NovaFigura(Figura);
+            ControlDePiezas.MoureFiguraCostats(Figura);
+            /*Poner las funciones de bajar figura*/
+            caer();
+            
+            MostrarTauler(tauler);
+            System.out.println("--------------------");
+
+        }
+    }
 }
+//caer
+

@@ -220,10 +220,10 @@ public class Tetris {
 
     //Funció on es crea la figura
     public static int[][] NovaFigura(int[][] figura) {
-        DAU = (int) (Math.random() * 4 + 1);
+        DAU = (int) (Math.random() * filFigura + 1);
         switch (DAU) {
             case 1:// PiezaI
-                for (int i = 0; i < 4; i++) {
+                for (int i = 0; i < filFigura; i++) {
                     figura[i][0] = 1;
                 }
                 break;
@@ -259,7 +259,7 @@ public class Tetris {
                 if (figura[j][i] != 0 && i > 0) {
                     figura[j][i - 1] = figura[j][i];
                     figura[j][i] = 0;
-                    posCol = i - 2;
+                    posCol = i - DOS;
                 } else if (figura[j][i] != 0 && i == 0) {
                     imposible = true;
                 }
@@ -321,7 +321,7 @@ public class Tetris {
         //Mentres que la partida no s'acabi..
         do {
             //tauler de les figures
-            figura = new int[4][col];
+            figura = new int[filFigura][col];
             NovaFigura(figura);
             posCol = 0;
             MoureFiguraCostats(figura);

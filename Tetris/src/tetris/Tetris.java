@@ -40,9 +40,8 @@ public class Tetris {
 
         //Ens assegurem de que la ultima (primer fila en l'array) estigui buida
         boolean figuraColocada = false;
-        if (tauler[1][posCol] != 0) {
-            tauler[0][posCol] = 1;
-        }
+
+        //Recorrer l'array menys les tres ultimes files (primeres), sino no funciona be
         for (int i = fila - 1; i > DOS; i--) {
             if (tauler[i][posCol] == 0 && tauler[i - 1][posCol] == 0
                     && tauler[i - DOS][posCol] == 0 && tauler[i - TRES][posCol] == 0 && figuraColocada == false) {
@@ -51,12 +50,34 @@ public class Tetris {
                 tauler[i - DOS][posCol] = 1;
                 tauler[i - TRES][posCol] = 1;
                 figuraColocada = true;
+
             }
+
         }
+        //Si queden 3 espais buits, els omplim amb 3 parts de la colummna
+        if (tauler[3][posCol] != 0 && figuraColocada == false) {
+            tauler[0][posCol] = 1;
+            tauler[1][posCol] = 1;
+            tauler[2][posCol] = 1;
+            figuraColocada = true;
+
+            //Si queden 2 espais buits els omplim amb 2 parts
+        } else if (tauler[2][posCol] != 0 && figuraColocada == false) {
+            tauler[0][posCol] = 1;
+            tauler[1][posCol] = 1;
+            figuraColocada = true;
+
+            //Si només queda 1 espai buit l'omplim amb una part 
+        } else if (tauler[1][posCol] != 0 && figuraColocada == false) {
+            tauler[0][posCol] = 1;
+            figuraColocada = true;
+
+        }
+
         figuraColocada = false;
     }
-
-    //Segon la figura del quadrat
+    
+//Segon la figura del quadrat
     static void caureQuadrat() {
         boolean figuraColocada = false;
         if (tauler[1][posCol] != 0 || tauler[1][posCol + 1] != 0) {
@@ -74,7 +95,7 @@ public class Tetris {
                 figuraColocada = true;
             }
         }
-        figuraColocada = false;
+
     }
 
     //La figura de la L
